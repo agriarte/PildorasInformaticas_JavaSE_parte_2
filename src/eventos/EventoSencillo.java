@@ -32,6 +32,8 @@ class LaminaBotonesColores extends JPanel implements ActionListener {
         add(botonRojo);
         add(botonVerde);
 
+        //al añadir el actionListener a cada botón, cada vez que se pulse actionPerformed recibe
+        //un objeto donde obtener el nombre del botón pulsado
         botonAzul.addActionListener(this);
         botonRojo.addActionListener(this);
         botonVerde.addActionListener(this);
