@@ -68,10 +68,15 @@ class Lamina_Principal extends JPanel{
 }
 //pasar botón cerrarTodo como parámetro a la clase MarcoNuevo y ponerlo a la escucha
 //este boton viaja a esta clase pero no es visible ni le hacemos un add(boton_cerrar);
+//Es un poco extraña esta forma de programar. El botón realmente está en una sola ventana pero
+//estamos enviando copias de ese objeto boton a todas las ventanas. Al pulsar el botón en la ventana
+//principal todas las "copias" de ese botón están a la escucha y ejecutan la acción. Raro pero funciona.
 class MarcoNuevo extends JFrame{
     //variable estática común para todas las instancias que va contando número de ventanas
     private static int contador = 0;
     public MarcoNuevo(JButton boton) throws HeadlessException {
+        //cada nueva instancia de este objeto tiene su propio numero de contador
+        //las coordenadas de la ventana se calculan a partir de contador
         contador++;
         setTitle("Ventana " + contador);
         setBounds(50*contador, 50*contador,350,200);
