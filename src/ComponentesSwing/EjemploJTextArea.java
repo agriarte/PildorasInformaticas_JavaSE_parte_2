@@ -25,7 +25,7 @@ public class EjemploJTextArea {
             //para que tenga barras de desplazamiento se agrega el JTextArea a un panel especial
             //así cuando el texto llega al final del area aparecen barras
             JScrollPane miScrollPane = new JScrollPane(miAreaTexto);
-            miAreaTexto.setLineWrap(true);
+            miAreaTexto.setLineWrap(true);//salto de linea automatico
             add(miScrollPane);// ojo! se agrega el nuevo Panel
 
             JButton miBoton = new JButton("boton");
