@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class Calculadora {
     public static void main(String[] args) {
@@ -19,6 +20,12 @@ class MarcoCalculadora extends JFrame{
         setBounds(500,300,450,300);
         PanelCalculadora miLamina = new PanelCalculadora();
         add(miLamina);
+
+        //crear icono de ventana que también será válido si se crea .JAR o .EXE
+        Toolkit miHardware=Toolkit.getDefaultToolkit();
+        URL rutaImagen = MarcoCalculadora.class.getResource("calculadora.png");
+        Image miIcono = miHardware.getImage(rutaImagen);
+        setIconImage(miIcono);
     }
 }
 
