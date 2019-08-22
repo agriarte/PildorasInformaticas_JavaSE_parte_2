@@ -17,7 +17,7 @@ public class HerenciaGenericos{
         VariosTipos<Jefe> ivan = new VariosTipos<Jefe>();
 
         VariosTipos.imprimirTrabajador(empleado500);// no da error
-        VariosTipos.imprimirTrabajador(ivan); // da error porque creando así las instancias un jefe no es un empleado
+        //VariosTipos.imprimirTrabajador(ivan); // da error porque creando así las instancias un jefe no es un empleado
 
         //para que no de error se ha de usar el parámetro comodín ? en el método imprimir trabajador
 
