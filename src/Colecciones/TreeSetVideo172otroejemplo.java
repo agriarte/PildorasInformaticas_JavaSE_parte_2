@@ -42,6 +42,10 @@ class Productos implements Comparable<Productos>{
     @Override
     public int compareTo(Productos o) {
         //ordena automaticamente por numProducto.
+        //return devuelve 0 si son iguales, o un número positivo o negativo que usa para ordenar
+        System.out.println(this.numProducto - o.numProducto);
         return this.numProducto - o.numProducto;
+        //para ordenar de mayor o menor.
+        //return o.numProducto - this.numProducto;
     }
 }

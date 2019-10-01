@@ -11,6 +11,8 @@ public class SincronizandoHilos {
 
         SincronizaThreads hilo2 = new SincronizaThreads();
 
+
+
         hilo1.start();
         try {
             hilo1.join();
@@ -26,6 +28,7 @@ public class SincronizandoHilos {
         }
 
         System.out.println("fin de tareas");
+
 
     }
 }

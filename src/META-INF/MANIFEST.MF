@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: Calculadora_Videos99a103.Calculadora
-

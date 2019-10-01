@@ -16,11 +16,13 @@ public class EjemploCountDownLatch {
         hilo1.start();
         hilo2.start();
 
+        //flujo se queda aqui esperando que finalicen tareas para abrir paso
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
         System.out.println("FIN DE TAREAS");
 
