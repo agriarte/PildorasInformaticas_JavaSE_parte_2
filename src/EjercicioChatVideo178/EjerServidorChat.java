@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
         import java.net.Socket;
 
@@ -67,6 +68,11 @@ class MarcoServidorChat extends JFrame implements Runnable {
                 //accept devuelve un objeto tipo Socket. Con la siguiente linea le estamos diciendo que acepte todas las
                 //conexiones y las guardamos en un Socket
                 Socket miSocket = miServerSocket.accept();
+
+                //obtenemos la dirección del cliente en formato InetAdress. La siguiente linea
+                //es para convertirlo a formato String
+                InetAddress dirCliente=miSocket.getInetAddress();
+                String dirClienteStr = dirCliente.getHostAddress();
                 //flujo de entrada de datos
                 ObjectInputStream miFlujoEntrada = new ObjectInputStream(miSocket.getInputStream());
                 //leer flujo de entrada, paquete serializado

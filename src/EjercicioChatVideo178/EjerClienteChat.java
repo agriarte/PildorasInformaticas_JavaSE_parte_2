@@ -16,7 +16,7 @@ public class EjerClienteChat {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
 
-        EjercicioChatVideo178.MarcoClienteChat mimarco=new EjercicioChatVideo178.MarcoClienteChat();
+        EjercicioChatVideo178.MarcoClienteChat mimarco = new EjercicioChatVideo178.MarcoClienteChat();
 
         mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -25,48 +25,71 @@ public class EjerClienteChat {
 }
 
 
-class MarcoClienteChat extends JFrame{
+class MarcoClienteChat extends JFrame {
 
-    public MarcoClienteChat(){
+    public MarcoClienteChat() {
 
-        setBounds(600,300,280,350);
+        setBounds(600, 300, 280, 350);
 
-        EjercicioChatVideo178.LaminaClienteChat milamina=new EjercicioChatVideo178.LaminaClienteChat();
+        EjercicioChatVideo178.LaminaClienteChat milamina = new EjercicioChatVideo178.LaminaClienteChat();
 
         add(milamina);
 
         setVisible(true);
 
+        EstableceConexionServidor();
+
+    }
+
+    void EstableceConexionServidor() {
+        try {
+            //creación de Socket inicial solo para saber la IP del cliente(vía de comunicación)
+            Socket miSocket = new Socket("192.168.1.36", 9999);
+            EnvioPaqueteDatos envioPaqueteDatos = new EnvioPaqueteDatos();
+            envioPaqueteDatos.setTextoCliente("Online");
+            ObjectOutputStream flujoSalidaPaquete = new ObjectOutputStream(miSocket.getOutputStream());
+            flujoSalidaPaquete.writeObject(envioPaqueteDatos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
 
 
 class LaminaClienteChat extends JPanel implements Runnable {
-    private JTextField campo1Txt,nickTxt,ipTxt;
+    private JTextField campo1Txt;
+    private JComboBox ipTxt;
+
+    private JLabel nickTxt;
     private JButton mibotonBtn;
     private JTextArea areaChatTxt;
     private JLabel chatTxt;
 
-    public LaminaClienteChat(){
+    public LaminaClienteChat() {
 
-        nickTxt = new JTextField(5);
+        nickTxt = new JLabel();
+        nickTxt.setText(JOptionPane.showInputDialog("Nick: "));
         add(nickTxt);
 
-        chatTxt=new JLabel("--CHAT--");
+        chatTxt = new JLabel(" Online->");
         add(chatTxt);
 
-        ipTxt = new JTextField(8);
+        ipTxt = new JComboBox();
+        ipTxt.addItem("Juan");
+        ipTxt.addItem("Manuel");
+        ipTxt.addItem("Carlos");
+        ipTxt.addItem("Pepe");
         add(ipTxt);
 
-        areaChatTxt = new JTextArea(12,20);
+        areaChatTxt = new JTextArea(12, 20);
         add(areaChatTxt);
 
-        campo1Txt =new JTextField(20);
+        campo1Txt = new JTextField(20);
 
         add(campo1Txt);
 
-        mibotonBtn=new JButton("Enviar");
+        mibotonBtn = new JButton("Enviar");
 
         mibotonBtn.addActionListener(new ActionListener() {
             @Override
@@ -75,12 +98,12 @@ class LaminaClienteChat extends JPanel implements Runnable {
 
                 try {
                     //creación de Socket (vía de comunicación)
-                    Socket miSocket= new Socket("192.168.1.40",9999);
+                    Socket miSocket = new Socket("192.168.1.36", 9999);
 
                     EnvioPaqueteDatos datos = new EnvioPaqueteDatos();
 
                     datos.setNick(nickTxt.getText());
-                    datos.setIp(ipTxt.getText());
+                    datos.setIp(ipTxt.getSelectedItem().toString());
                     datos.setTextoCliente(campo1Txt.getText());
 
                     //crear flujo de salida con objeto serializado.
@@ -104,8 +127,8 @@ class LaminaClienteChat extends JPanel implements Runnable {
 
         Thread miHilo = new Thread(this);
         miHilo.start();
-
     }
+
 
     @Override
     public void run() {
@@ -115,12 +138,12 @@ class LaminaClienteChat extends JPanel implements Runnable {
             ServerSocket escuchaCliente = new ServerSocket(9090);
             Socket cliente;
             EnvioPaqueteDatos paqueteRecibidos;
-            while (true){
+            while (true) {
                 cliente = escuchaCliente.accept();
                 ObjectInputStream flujoEntrada = new ObjectInputStream(cliente.getInputStream());
-                paqueteRecibidos =(EnvioPaqueteDatos) flujoEntrada.readObject();
+                paqueteRecibidos = (EnvioPaqueteDatos) flujoEntrada.readObject();
 
-                areaChatTxt.append("\n" + paqueteRecibidos.getNick() + ": " + paqueteRecibidos.getTextoCliente() );
+                areaChatTxt.append("\n" + paqueteRecibidos.getNick() + ": " + paqueteRecibidos.getTextoCliente());
             }
 
         } catch (IOException e) {
@@ -132,7 +155,7 @@ class LaminaClienteChat extends JPanel implements Runnable {
 }
 
 class EnvioPaqueteDatos implements Serializable {
-    private String nick,ip, textoCliente;
+    private String nick, ip, textoCliente;
 
 
     public String getNick() {
