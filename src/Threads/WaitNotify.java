@@ -8,11 +8,14 @@ public class WaitNotify {
         MyHouse house = new MyHouse();
 
         //se crean 2 hilos para ejecutar 2 métodos del mismo objeto
-        Thread t1 = new Thread(() -> {
-            try {
-                house.eatPizza();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    house.eatPizza();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

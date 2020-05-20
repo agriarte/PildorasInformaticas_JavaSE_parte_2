@@ -60,7 +60,7 @@ class LaminaClienteChat extends JPanel {
 
                 try {
                     //creación de Socket (vía de comunicación)
-                    Socket miSocket= new Socket("192.168.1.43",9999);
+                    Socket miSocket= new Socket("192.168.1.45",9999);
                     //creación de flujo de datos (OutputString)
                     DataOutputStream flujoSalida = new DataOutputStream(miSocket.getOutputStream());
                     //definir que va en el flujo de datos
