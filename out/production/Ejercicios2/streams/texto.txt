@@ -1,0 +1,6 @@
+Texto de ejemplo. Hola. 
+1
+2
+3
+4
+Adios.
